@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#4361ee">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.json">
+  <title>Coding Plan</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f4f8;
+      color: #1e293b;
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    header {
+      background: #4361ee;
+      color: white;
+      padding: 16px 20px 14px;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    header.study { background: #d97706; }
+
+    .session-label {
+      font-size: 12px;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+    }
+
+    .session-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-top: 5px;
+      line-height: 1.3;
+    }
+
+    .study-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 20px;
+      margin-top: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .content p   { margin-bottom: 14px; line-height: 1.65; font-size: 16px; }
+    .content ul  { margin: 0 0 14px 22px; }
+    .content li  { margin-bottom: 8px; line-height: 1.65; font-size: 16px; }
+
+    .content blockquote {
+      background: #e8f0fe;
+      border-left: 4px solid #4361ee;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+      line-height: 1.55;
+      color: #334155;
+    }
+
+    header.study ~ main .content blockquote {
+      background: #fef3c7;
+      border-left-color: #d97706;
+    }
+
+    .content code {
+      background: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+    }
+
+    .content a {
+      color: #4361ee;
+      text-decoration: none;
+      border-bottom: 1px solid #a5b4fc;
+      word-break: break-all;
+    }
+
+    .content strong { font-weight: 700; }
+    .content em     { font-style: italic; }
+
+    nav {
+      background: white;
+      border-top: 1px solid #e2e8f0;
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 12px;
+    }
+
+    nav button {
+      background: #4361ee;
+      color: white;
+      border: none;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      flex-shrink: 0;
+    }
+
+    nav button:disabled { background: #cbd5e0; cursor: default; }
+    nav button:active:not(:disabled) { opacity: 0.8; }
+
+    .progress { font-size: 14px; color: #64748b; font-weight: 500; text-align: center; }
+
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 16px;
+      color: #64748b;
+      padding: 40px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="session-label" id="session-label">Loading…</div>
+    <div class="session-title" id="session-title"></div>
+    <div id="study-badge"></div>
+  </header>
+
+  <main>
+    <div class="content" id="content">
+      <div class="status">Fetching your plan…</div>
+    </div>
+  </main>
+
+  <nav>
+    <button id="prev-btn" onclick="go(-1)" disabled>← Prev</button>
+    <span class="progress" id="progress"></span>
+    <button id="next-btn" onclick="go(1)" disabled>Next →</button>
+  </nav>
+
+  <script>
+    const PLAN_URL     = 'https://raw.githubusercontent.com/aredeex/coding_plan/main/.coding_plan.md';
+    const CACHE_KEY    = 'coding-plan-content';
+    const PROGRESS_KEY = 'coding-plan-session';
+
+    let sessions = {};
+    let total    = 0;
+    let current  = 1;
+
+    // ── Parse ────────────────────────────────────────────────────────────────
+
+    function parseSessions(content) {
+      const result = {};
+      let num = null, lines = [];
+
+      for (const line of content.split('\n')) {
+        const m = line.match(/^\*\*Session (\d+)/);
+        if (m) {
+          if (num !== null) result[num] = lines.join('\n').trimEnd();
+          num = parseInt(m[1]);
+          lines = [line];
+        } else if (num !== null) {
+          if (line.startsWith('---') || /^#{1,3} /.test(line)) {
+            result[num] = lines.join('\n').trimEnd();
+            num = null; lines = [];
+          } else {
+            lines.push(line);
+          }
+        }
+      }
+      if (num !== null) result[num] = lines.join('\n').trimEnd();
+      return result;
+    }
+
+    // ── Render ───────────────────────────────────────────────────────────────
+
+    function renderInline(text) {
+      return text
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
+        .replace(/`([^`]+)`/g, '<code>$1</code>');
+    }
+
+    function renderMarkdown(text) {
+      const lines = text.split('\n');
+      let html = '', inList = false, para = [];
+
+      const flushPara = () => {
+        if (para.length) {
+          const t = para.join(' ').trim();
+          if (t) html += `<p>${renderInline(t)}</p>`;
+          para = [];
+        }
+      };
+      const closeList = () => { if (inList) { html += '</ul>'; inList = false; } };
+
+      for (const line of lines) {
+        if (line.startsWith('>')) {
+          flushPara(); closeList();
+          html += `<blockquote>${renderInline(line.replace(/^> ?/, ''))}</blockquote>`;
+        } else if (line.startsWith('- ')) {
+          flushPara();
+          if (!inList) { html += '<ul>'; inList = true; }
+          html += `<li>${renderInline(line.slice(2))}</li>`;
+        } else if (line.trim() === '') {
+          flushPara(); closeList();
+        } else {
+          if (inList) closeList();
+          para.push(line);
+        }
+      }
+      flushPara(); closeList();
+      return html;
+    }
+
+    // ── Display ──────────────────────────────────────────────────────────────
+
+    function showSession(n) {
+      if (!sessions[n]) return;
+      current = n;
+      localStorage.setItem(PROGRESS_KEY, n);
+
+      const text       = sessions[n];
+      const titleMatch = text.match(/^\*\*Session \d+ — (.+?)\*\*/);
+      const title      = titleMatch ? titleMatch[1] : '';
+      const isStudy    = title.includes('[ STUDY ]');
+      const cleanTitle = title.replace('[ STUDY ] ', '');
+      const body       = text.replace(/^\*\*Session \d+[^\n]+\n\n?/, '');
+
+      document.getElementById('header').className       = isStudy ? 'study' : '';
+      document.getElementById('session-label').textContent = `Session ${n} of ${total}`;
+      document.getElementById('session-title').textContent = cleanTitle;
+      document.getElementById('study-badge').innerHTML  = isStudy
+        ? '<span class="study-badge">Study session</span>' : '';
+      document.getElementById('content').innerHTML      = renderMarkdown(body);
+      document.getElementById('progress').textContent   = `${n} / ${total}`;
+      document.getElementById('prev-btn').disabled      = n <= 1;
+      document.getElementById('next-btn').disabled      = n >= total;
+
+      document.querySelector('main').scrollTop = 0;
+    }
+
+    function go(dir) {
+      const next = current + dir;
+      if (sessions[next]) showSession(next);
+    }
+
+    // ── Load ─────────────────────────────────────────────────────────────────
+
+    async function loadPlan() {
+      let content;
+      try {
+        const res = await fetch(PLAN_URL);
+        content   = await res.text();
+        localStorage.setItem(CACHE_KEY, content);
+      } catch {
+        content = localStorage.getItem(CACHE_KEY);
+        if (!content) {
+          document.getElementById('content').innerHTML =
+            '<div class="status">Could not load the plan.<br>Connect to the internet and try again.</div>';
+          return;
+        }
+      }
+
+      sessions = parseSessions(content);
+      total    = Math.max(...Object.keys(sessions).map(Number));
+      const saved = parseInt(localStorage.getItem(PROGRESS_KEY)) || 1;
+      showSession(sessions[saved] ? saved : 1);
+    }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js', { scope: '/coding_plan/' });
+    }
+
+    loadPlan();
+  </script>
+</body>
+</html>
