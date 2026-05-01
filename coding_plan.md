@@ -8,7 +8,7 @@ Sessions are designed to run about one hour each. Study sessions are marked with
 *Goal: build a mental model before writing a single line of code.*
 
 **Session 1 — KA: Computers and the Internet**
-Go to **[khanacademy.org](https://www.khanacademy.org)** and search for "AP Computer Science Principles." Inside that course, open the "Computers and the Internet" unit. Watch all videos and complete the exercises. Pause and re-watch anything confusing — there's no timer.
+Go to **[Khan Academy: AP Computer Science Principles](https://www.khanacademy.org/computing/ap-computer-science-principles)** and open the "Computers and the Internet" unit. Watch all videos and complete the exercises. Pause and re-watch anything confusing — there's no timer.
 
 **Session 2 — KA: Algorithms**
 In the same AP CSP course, complete the "Algorithms" unit. These exercises have no coding — they're about how a computer breaks a problem into steps.
@@ -30,7 +30,7 @@ Without looking at anything, write a short paragraph about what you learned in P
 ## Phase 1 — Write Your First Code
 *Goal: learn the core building blocks of programming in a forgiving environment.*
 
-Go to **[khanacademy.org](https://www.khanacademy.org)** and search for "Intro to JS: Drawing and Animation." The canvas on the right updates live as you type, which makes it immediately obvious what your code is doing.
+Go to **[Khan Academy: Intro to JS — Drawing and Animation](https://www.khanacademy.org/computing/computer-programming/programming)**. The canvas on the right updates live as you type, which makes it immediately obvious what your code is doing.
 
 **Session 7 — KA Drawing & Animation: Part 1**
 Work through the first half of the "Drawing & Animation" unit — variables and drawing shapes on the canvas.
