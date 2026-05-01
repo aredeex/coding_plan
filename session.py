@@ -11,7 +11,7 @@ import re
 import sys
 import urllib.request
 
-PLAN_URL = "https://raw.githubusercontent.com/aredeex/coding_plan/main/coding_plan.md"
+PLAN_URL = "https://raw.githubusercontent.com/aredeex/coding_plan/main/.coding_plan.md"
 SAVE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".current_session")
 
 
@@ -20,7 +20,7 @@ def fetch_plan():
         with urllib.request.urlopen(PLAN_URL) as r:
             return r.read().decode("utf-8")
     except Exception:
-        local = os.path.join(os.path.dirname(os.path.abspath(__file__)), "coding_plan.md")
+        local = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".coding_plan.md")
         if os.path.exists(local):
             print("(offline — using local copy)\n")
             return open(local).read()
