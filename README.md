@@ -1,61 +1,49 @@
 # Coding Plan
 
-This repo contains your coding crash course, delivered one session at a time so you don't have to look at the whole thing at once.
+Your coding crash course, delivered one session at a time so you don't have to look at the whole thing at once.
 
 ---
 
-## Before you start
+## On your phone (recommended)
 
-You need Python installed on your computer. If you don't have it yet:
+1. Open **[aredeex.github.io/coding_plan](https://aredeex.github.io/coding_plan/)** in Chrome on your Android phone
+2. Tap the **"Add to Home Screen"** banner that appears at the bottom
+3. Open it from your home screen like any other app
+
+That's it. It remembers where you left off, works offline, and shows you one session at a time.
+
+---
+
+## On your computer
+
+You need Python installed. If you don't have it:
 
 1. Go to [python.org/downloads](https://www.python.org/downloads/)
-2. Click the big yellow download button
-3. Open the downloaded file and follow the installer — all the defaults are fine
+2. Click the big download button and run the installer — all the defaults are fine
 
----
-
-## Get the files
-
-**Option A — if you have git:**
+Then get the files. If you have git:
 ```
 git clone https://github.com/aredeex/coding_plan.git
 ```
 
-**Option B — no git needed:**
-1. Click the green **Code** button at the top of this page
-2. Click **Download ZIP**
-3. Unzip the folder somewhere easy to find, like your Desktop
-
----
-
-## Run it
+Or click the green **Code** button at the top of this page → **Download ZIP**, and unzip it somewhere easy to find.
 
 Open your terminal:
-- **Mac:** press `Cmd + Space`, type `Terminal`, hit Enter
-- **Windows:** press the Windows key, type `cmd`, hit Enter
+- **Mac:** `Cmd + Space`, type `Terminal`, hit Enter
+- **Windows:** Windows key, type `cmd`, hit Enter
 
-Navigate to the folder you just downloaded:
+Navigate to the folder:
 ```
 cd path/to/coding_plan
 ```
-(For example, if you unzipped it to your Desktop: `cd ~/Desktop/coding_plan`)
 
-Then run:
+Run it:
 ```
 python session.py
 ```
 
-The first time it will ask which session you want to start on. Type `1` and press Enter.
+The first time it asks which session to start on — type `1` and press Enter. Every time after that it picks up where you left off.
 
 ---
 
-## Day to day
-
-Every time you sit down to study, just run:
-```
-python session.py
-```
-
-It remembers where you left off and asks if you want to continue. Press Enter to pick up where you were, or type a session number to jump somewhere specific.
-
-That's it. One session at a time.
+One session at a time. You've got this.
