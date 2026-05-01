@@ -10,6 +10,8 @@ Sessions are designed to run about one hour each. Study sessions are marked with
 **Session 1 — KA: Computers and the Internet**
 Go to **[Khan Academy: AP Computer Science Principles](https://www.khanacademy.org/computing/ap-computer-science-principles)** and open the "Computers and the Internet" unit. Watch all videos and complete the exercises. Pause and re-watch anything confusing — there's no timer.
 
+> **Note on Khan Academy links:** All KA links in this plan point to the top of each course rather than individual units, because KA occasionally reorganizes their content and deep links can break. If a unit isn't immediately visible when you land on the page, scroll down to the course table of contents and find it by name.
+
 **Session 2 — KA: Algorithms**
 In the same AP CSP course, complete the "Algorithms" unit. These exercises have no coding — they're about how a computer breaks a problem into steps.
 
