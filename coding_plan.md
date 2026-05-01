@@ -102,10 +102,10 @@ Watch **[Lecture 4: Decomposition, Abstraction, and Functions](https://ocw.mit.e
 Rewrite your palindrome program from Session 20 so that each logical step is its own function. Read **[ATBS Chapter 3: Functions](https://automatetheboringstuff.com/2e/chapter3/)**.
 
 **Session 23 — [ STUDY ] Problem Set 1, Part A**
-Open the Problem Set 1 page on the MIT course site and work on the first problems. Sit with each one for 20–30 minutes before looking anything up.
+Open **[Problem Set 1](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)** from the MIT assignments page and work on the first problems. Sit with each one for 20–30 minutes before looking anything up.
 
 **Session 24 — [ STUDY ] Problem Set 1, Part B**
-Finish Problem Set 1. Check the solution files only after you've made a genuine attempt at each problem.
+Finish **[Problem Set 1](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)**. Check the solution files only after you've made a genuine attempt at each problem.
 
 ---
 
@@ -130,10 +130,10 @@ Watch **[Lecture 7: Testing, Debugging, Exceptions, and Assertions](https://ocw.
 Take one of your programs from a previous practice session and deliberately introduce three bugs. Then fix them using only the error messages — no reading the original. This trains the most important skill a programmer has.
 
 **Session 31 — [ STUDY ] Problem Set 2, Part A**
-Start Problem Set 2. Same approach as before — try hard before looking anything up.
+Start **[Problem Set 2](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)**. Same approach as before — try hard before looking anything up.
 
 **Session 32 — [ STUDY ] Problem Set 2, Part B**
-Finish Problem Set 2.
+Finish **[Problem Set 2](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)**.
 
 ---
 
@@ -152,7 +152,7 @@ Watch **[Lecture 9: Python Classes and Inheritance](https://ocw.mit.edu/courses/
 Create a `Dog` class that inherits from your `Animal` class and adds a method called `bark()`. Make sure `Dog` still has access to everything `Animal` has.
 
 **Session 37 — [ STUDY ] Problem Set 3**
-Work through Problem Set 3. These problem sets will start feeling longer — break the session into focused 25-minute blocks with short breaks between them.
+Work through **[Problem Set 3](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)**. These will start feeling longer — break the session into focused 25-minute blocks with short breaks between them.
 
 **Session 38 — MIT Lecture 10: Program Efficiency, Part 1**
 Watch **[Lecture 10: Understanding Program Efficiency, Part 1](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/resources/lecture-10-understanding-program-efficiency-part-1/)**. This is about understanding *why* some programs are slow — the concepts here will help you write better code even if you never think about them explicitly again.
@@ -168,13 +168,13 @@ Watch **[Lecture 11: Understanding Program Efficiency, Part 2](https://ocw.mit.e
 Watch **[Lecture 12: Searching and Sorting](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/resources/lecture-12-searching-and-sorting/)**. This is the last lecture — you're close to done with the course content.
 
 **Session 41 — [ STUDY ] Problem Set 4, Part A**
-Start Problem Set 4.
+Start **[Problem Set 4](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)**.
 
 **Session 42 — [ STUDY ] Problem Set 4, Part B**
-Finish Problem Set 4.
+Finish **[Problem Set 4](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)**.
 
 **Session 43 — [ STUDY ] Problem Set 5**
-Work through Problem Set 5. This is the final problem set.
+Work through **[Problem Set 5](https://ocw.mit.edu/courses/6-0001-introduction-to-computer-science-and-programming-in-python-fall-2016/pages/assignments/)**. This is the final problem set.
 
 **Session 44 — [ STUDY ] Phase 2 final review**
 Go back to this checklist and write a concrete example in code for each item — don't just say yes:
