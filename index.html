@@ -142,6 +142,86 @@
       padding: 40px;
       text-align: center;
     }
+
+    .intro {
+      padding: 8px 4px;
+    }
+
+    .intro h2 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+
+    .intro p {
+      font-size: 16px;
+      line-height: 1.65;
+      color: #475569;
+      margin-bottom: 16px;
+    }
+
+    .intro-how {
+      background: white;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 20px 0;
+    }
+
+    .intro-how h3 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+
+    .intro-how ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .intro-how li {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #334155;
+      padding: 6px 0;
+      border-bottom: 1px solid #f1f5f9;
+      display: flex;
+      gap: 10px;
+    }
+
+    .intro-how li:last-child { border-bottom: none; }
+
+    .intro-how .icon { flex-shrink: 0; }
+
+    .study-pill {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    .start-btn {
+      width: 100%;
+      background: #4361ee;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .start-btn:active { opacity: 0.85; }
   </style>
 </head>
 <body>
@@ -168,6 +248,7 @@
     const PLAN_URL     = 'https://raw.githubusercontent.com/aredeex/coding_plan/main/.coding_plan.md';
     const CACHE_KEY    = 'coding-plan-content';
     const PROGRESS_KEY = 'coding-plan-session';
+    const INTRO_KEY    = 'coding-plan-intro-seen';
 
     let sessions = {};
     let total    = 0;
@@ -240,6 +321,54 @@
       return html;
     }
 
+    // ── Intro ────────────────────────────────────────────────────────────────
+
+    function showIntro(savedSession) {
+      const hasSaved   = savedSession && sessions[savedSession];
+      const btnLabel   = hasSaved ? `Continue from Session ${savedSession} →` : 'Start Session 1 →';
+      const startAt    = hasSaved ? savedSession : 1;
+
+      document.getElementById('header').className       = '';
+      document.getElementById('session-label').textContent = 'Your coding course';
+      document.getElementById('session-title').textContent = 'Welcome';
+      document.getElementById('study-badge').innerHTML  = '';
+      document.getElementById('progress').textContent   = '';
+      document.getElementById('prev-btn').style.display = 'none';
+      document.getElementById('next-btn').style.display = 'none';
+
+      document.getElementById('content').innerHTML = `
+        <div class="intro">
+          <h2>One session at a time.</h2>
+          <p>
+            This app walks you through a complete beginner coding course —
+            63 sessions, each about an hour long. You don't have to look
+            at the whole thing. Just open it, do one session, and come back tomorrow.
+          </p>
+
+          <div class="intro-how">
+            <h3>How it works</h3>
+            <ul>
+              <li><span class="icon">▶</span> <span>Each session tells you exactly what to watch, read, or do — no guessing.</span></li>
+              <li><span class="icon">⬅</span> <span>Use <strong>Prev</strong> and <strong>Next</strong> to move between sessions.</span></li>
+              <li><span class="icon">💾</span> <span>Your progress is saved automatically every time you move forward.</span></li>
+              <li><span class="icon">📚</span> <span>Sessions marked <span class="study-pill">STUDY SESSION</span> are just as important — don't skip them.</span></li>
+            </ul>
+          </div>
+
+          <p>That's all there is to it. Ready?</p>
+
+          <button class="start-btn" onclick="dismissIntro(${startAt})">${btnLabel}</button>
+        </div>
+      `;
+    }
+
+    function dismissIntro(startAt) {
+      localStorage.setItem(INTRO_KEY, '1');
+      document.getElementById('prev-btn').style.display = '';
+      document.getElementById('next-btn').style.display = '';
+      showSession(startAt);
+    }
+
     // ── Display ──────────────────────────────────────────────────────────────
 
     function showSession(n) {
@@ -292,7 +421,12 @@
       sessions = parseSessions(content);
       total    = Math.max(...Object.keys(sessions).map(Number));
       const saved = parseInt(localStorage.getItem(PROGRESS_KEY)) || 1;
-      showSession(sessions[saved] ? saved : 1);
+
+      if (!localStorage.getItem(INTRO_KEY)) {
+        showIntro(saved);
+      } else {
+        showSession(sessions[saved] ? saved : 1);
+      }
     }
 
     if ('serviceWorker' in navigator) {
